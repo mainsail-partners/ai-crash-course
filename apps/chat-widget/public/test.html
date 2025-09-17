@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Widget Test</title>
+    <script type="module" src="/src/main.ts"></script>
+    <!-- Pico.css (CSS-only, Material-ish) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <style>
+      /* Slightly smaller base font */
+      html { font-size: 15px; }
+      /* Tighter container and more space between rows */
+      main.container { max-width: 980px; }
+      .form-grid-two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 1.5rem; row-gap: 1.25rem; align-items: end; }
+      @media (max-width: 800px) { .form-grid-two { grid-template-columns: 1fr; } }
+      #params { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; min-height: 120px; }
+      footer.grid { justify-items: end; }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <article>
+        <header>
+          <h1>Chat Widget Demo</h1>
+          <p>Enter your API base URL, agent name, and optional parameters to initialize the widget.</p>
+        </header>
+        <form onsubmit="return false;">
+          <div class="form-grid-two">
+            <label>API URL
+              <input id="apiUrl" placeholder="http://localhost:3000" value="http://localhost:3000" />
+            </label>
+            <label>Agent
+              <input id="agent" placeholder="lead-intake-agent" value="lead-intake-agent" />
+            </label>
+          </div>
+          <div class="form-grid-two">
+            <label>Theme
+              <select id="theme">
+                <option value="light" selected>light</option>
+                <option value="dark">dark</option>
+              </select>
+            </label>
+            <label>Position
+              <select id="position">
+                <option value="bottom-right" selected>bottom-right</option>
+                <option value="bottom-left">bottom-left</option>
+                <option value="top-right">top-right</option>
+                <option value="top-left">top-left</option>
+              </select>
+            </label>
+          </div>
+          <div class="form-grid-two">
+            <label>Width
+              <input id="width" type="number" value="500" />
+            </label>
+            <label>Height
+              <input id="height" type="number" value="700" />
+            </label>
+          </div>
+          <div class="form-grid-two" style="margin-top: 0.75rem;">
+            <label>
+              <input id="runInit" type="checkbox" role="switch" checked />
+              Run LLM call on initialization
+            </label>
+            <span></span>
+          </div>
+          <label>Parameters (JSON)
+            <textarea id="params">{}</textarea>
+            <small>e.g. {"foo": "bar"}</small>
+          </label>
+          <footer class="grid">
+            <button class="secondary" id="reset" type="button">Reset</button>
+            <button id="init" type="button">Initialize</button>
+          </footer>
+        </form>
+      </article>
+    </main>
+    <script type="module">
+      import { initializeChatWidget } from '/src/main.ts';
+      const $ = (id) => document.getElementById(id);
+      function parseParams() {
+        try { return JSON.parse($("params").value || '{}'); } catch { return {}; }
+      }
+      $("init").addEventListener('click', () => {
+        const widget = initializeChatWidget({
+          apiUrl: $("apiUrl").value.trim(),
+          agent: $("agent").value.trim(),
+          parameters: parseParams(),
+          theme: $("theme").value,
+          position: $("position").value,
+          width: parseInt($("width").value || '500', 10),
+          height: parseInt($("height").value || '700', 10),
+          runLLMCallOnInit: $("runInit").checked,
+        });
+        widget.open?.();
+      });
+      $("reset").addEventListener('click', () => {
+        const el = document.querySelector('chat-widget');
+        if (el) el.remove();
+      });
+    </script>
+  </body>
+  </html>
+
+
