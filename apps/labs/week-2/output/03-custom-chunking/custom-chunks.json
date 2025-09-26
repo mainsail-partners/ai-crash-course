@@ -1,6 +1,6 @@
 [
   {
-    "docId": "fast_casual_descriptions.pdf:p1",
+    "docId": "fast_casual_descriptions.pdf.p1",
     "sectionIndex": 0,
     "restaurant": "Chipotle Mexican Grill",
     "aliasesMatched": [
@@ -13,7 +13,7 @@
     "page": 1
   },
   {
-    "docId": "fast_casual_descriptions.pdf:p1",
+    "docId": "fast_casual_descriptions.pdf.p1",
     "sectionIndex": 1,
     "restaurant": "Panera Bread",
     "aliasesMatched": [
@@ -26,7 +26,7 @@
     "page": 1
   },
   {
-    "docId": "fast_casual_descriptions.pdf:p1",
+    "docId": "fast_casual_descriptions.pdf.p1",
     "sectionIndex": 2,
     "restaurant": "Shake Shack",
     "aliasesMatched": [
@@ -39,7 +39,7 @@
     "page": 1
   },
   {
-    "docId": "fast_casual_descriptions.pdf:p1",
+    "docId": "fast_casual_descriptions.pdf.p1",
     "sectionIndex": 3,
     "restaurant": "Chick-fil-A",
     "aliasesMatched": [
@@ -52,7 +52,7 @@
     "page": 1
   },
   {
-    "docId": "fast_casual_descriptions.pdf:p1",
+    "docId": "fast_casual_descriptions.pdf.p1",
     "sectionIndex": 4,
     "restaurant": "Five Guys",
     "aliasesMatched": [
@@ -65,7 +65,7 @@
     "page": 1
   },
   {
-    "docId": "fast_casual_descriptions.pdf:p1",
+    "docId": "fast_casual_descriptions.pdf.p1",
     "sectionIndex": 5,
     "restaurant": "Firehouse Subs",
     "aliasesMatched": [
@@ -78,7 +78,7 @@
     "page": 1
   },
   {
-    "docId": "fast_casual_descriptions.pdf:p2",
+    "docId": "fast_casual_descriptions.pdf.p2",
     "sectionIndex": 0,
     "restaurant": "MOD Pizza",
     "aliasesMatched": [
@@ -91,7 +91,7 @@
     "page": 2
   },
   {
-    "docId": "fast_casual_descriptions.pdf:p2",
+    "docId": "fast_casual_descriptions.pdf.p2",
     "sectionIndex": 1,
     "restaurant": "Qdoba Mexican Eats",
     "aliasesMatched": [
@@ -104,7 +104,7 @@
     "page": 2
   },
   {
-    "docId": "fast_casual_descriptions.pdf:p2",
+    "docId": "fast_casual_descriptions.pdf.p2",
     "sectionIndex": 2,
     "restaurant": "Jersey Mike's Subs",
     "aliasesMatched": [
@@ -117,7 +117,7 @@
     "page": 2
   },
   {
-    "docId": "fast_casual_descriptions.pdf:p2",
+    "docId": "fast_casual_descriptions.pdf.p2",
     "sectionIndex": 3,
     "restaurant": "Noodles & Company",
     "aliasesMatched": [

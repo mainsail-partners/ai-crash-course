@@ -94,7 +94,7 @@ async function loadSingleFile(filePath: string): Promise<LoadedDoc[]> {
     // Parse the file into LangChain Document objects
     const docs = await loader.load();
     return docs.map((d: Document, idx: number) => ({
-      id: `${path.basename(filePath)}:p${(d.metadata as any)?.loc?.pageNumber ?? idx + 1}`,
+      id: `${path.basename(filePath)}.p${(d.metadata as any)?.loc?.pageNumber ?? idx + 1}`,
       sourcePath: filePath,
       mimeType,
       page: (d.metadata as any)?.loc?.pageNumber ?? undefined,
@@ -108,7 +108,7 @@ async function loadSingleFile(filePath: string): Promise<LoadedDoc[]> {
     // Parse into one or more Document chunks
     const docs = await loader.load();
     return docs.map((d: Document, idx: number) => ({
-      id: `${path.basename(filePath)}:${idx}`,
+      id: `${path.basename(filePath)}.${idx}`,
       sourcePath: filePath,
       mimeType,
       content: normalizeContent(d.pageContent),
@@ -120,7 +120,7 @@ async function loadSingleFile(filePath: string): Promise<LoadedDoc[]> {
     // Read entire file content as UTF-8 text
     const content = await fsp.readFile(filePath, 'utf8');
     return [{
-      id: `${path.basename(filePath)}:0`,
+      id: `${path.basename(filePath)}.0`,
       sourcePath: filePath,
       mimeType,
       content: normalizeContent(content),
@@ -159,7 +159,7 @@ async function writeOutputs(outputDir: string, docs: LoadedDoc[]) {
   const index = [] as Array<Omit<LoadedDoc, 'content'>>;
   for (const d of docs) {
     // Filesystem-safe name derived from id; includes page index for PDFs.
-    const safeBase = d.id.replace(/[^a-zA-Z0-9\-_.:]/g, '_').slice(0, 200);
+    const safeBase = d.id.replace(/[^a-zA-Z0-9\-_.]/g, '_').slice(0, 200);
     const outPath = path.join(textDir, `${safeBase}.txt`);
     // Write the plain-text content to an individual file for inspection
     await fsp.writeFile(outPath, d.content, 'utf8');

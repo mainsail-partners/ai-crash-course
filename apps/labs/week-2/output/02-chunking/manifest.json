@@ -14,13 +14,13 @@
   },
   "perDoc": [
     {
-      "id": "fast_casual_descriptions.pdf:p1",
+      "id": "fast_casual_descriptions.pdf.p1",
       "tokens": 515,
       "chunks": 3,
       "avgChunkTokens": 172
     },
     {
-      "id": "fast_casual_descriptions.pdf:p2",
+      "id": "fast_casual_descriptions.pdf.p2",
       "tokens": 354,
       "chunks": 3,
       "avgChunkTokens": 118
