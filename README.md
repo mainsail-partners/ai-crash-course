@@ -234,7 +234,7 @@ Run in dev and try the test page:
 
 ```sh
 npm run chat:dev
-# Then open http://localhost:5173/public/test.html
+# Then open http://localhost:5175/public/test.html
 ```
 
 Build for production (outputs to `apps/chat-widget/dist`):

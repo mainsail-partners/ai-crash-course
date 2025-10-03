@@ -8,6 +8,8 @@ import { ModelsModule } from './persistence/models.module';
 import { RepositoryModule } from './persistence/repository.module';
 import { ThreadsModule } from './threads/threads.module';
 import { KnowledgeModule } from './knowledge/knowledge.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -28,6 +30,15 @@ import { KnowledgeModule } from './knowledge/knowledge.module';
         XAI_API_KEY: Joi.string().allow('').optional(),
       }),
     }),
+    TypeOrmModule.forRootAsync({
+      useFactory: () => ({
+        type: 'postgres',
+        url: process.env.POSTGRES_URL,
+        autoLoadEntities: true,
+        synchronize: false,
+      }),
+    }),
+    MongooseModule.forRoot(process.env.MONGO_URL || ''),
     PersistenceModule,
     ModelsModule,
     RepositoryModule,

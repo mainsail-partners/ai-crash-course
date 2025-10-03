@@ -42,7 +42,12 @@ if (!fs.existsSync(scriptPath)) {
 }
 
 const run = async () => {
-  const mod = await import(scriptPath);
+  // Convert Windows path to file:// URL for ESM compatibility
+  const fileUrl = scriptPath.startsWith('file://')
+    ? scriptPath
+    : `file://${scriptPath.replace(/\\/g, '/')}`;
+
+  const mod = await import(fileUrl);
   if (typeof (mod as any).default === 'function') {
     await (mod as any).default();
   }

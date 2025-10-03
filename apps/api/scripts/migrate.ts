@@ -30,6 +30,13 @@ async function run() {
     const client = new Client({ connectionString: POSTGRES_URL });
     await client.connect();
     try {
+      // Ensure vector extension is enabled before any table uses VECTOR type
+      try {
+        await client.query(`CREATE EXTENSION IF NOT EXISTS vector;`);
+      } catch (err) {
+        console.error('Failed to enable the vector extension. Please ensure you are using a Postgres instance with pgvector support.');
+        throw err;
+      }
       await client.query(`
         CREATE TABLE IF NOT EXISTS threads (
           "threadId" VARCHAR(64) PRIMARY KEY,
@@ -66,9 +73,6 @@ async function run() {
         );
       `);
       await client.query(`
-        CREATE EXTENSION IF NOT EXISTS vector;
-      `);
-      await client.query(`
         CREATE TABLE IF NOT EXISTS chunks (
           id VARCHAR(64) PRIMARY KEY,
           "documentId" VARCHAR(64) NOT NULL,
@@ -78,6 +82,11 @@ async function run() {
           embedding_vec VECTOR(1536) NULL,
           "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW()
         );
+      `);
+      // Ensure embedding_vec column is added for existing databases
+      await client.query(`
+        ALTER TABLE chunks
+          ADD COLUMN IF NOT EXISTS embedding_vec VECTOR(1536) NULL;
       `);
       await client.query(`
         CREATE INDEX IF NOT EXISTS idx_chunks_account_created ON chunks("accountId", "createdAt" DESC);
